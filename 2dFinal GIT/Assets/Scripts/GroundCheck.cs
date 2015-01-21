@@ -3,8 +3,10 @@ using System.Collections;
 
 public class GroundCheck : MonoBehaviour {
 
+	public static Animator anim;
 	// Use this for initialization
 	void Start () {
+		anim = GetComponent<Animator> ();
 	
 	}
 	
@@ -14,10 +16,10 @@ public class GroundCheck : MonoBehaviour {
 	}
 	void OnCollisionEnter(Collision col)
 	{
-		if (col.gameObject.name == "Platform")
+		if (col.gameObject.tag == "Platform")
 		{
 			PlayerController.isGrounded = true;
-			PlayerController.doubleJump = false;
+			PlayerController.doubleJump = true;;
 			Debug.Log("GROUND");
 		}
 

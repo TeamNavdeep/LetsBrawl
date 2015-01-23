@@ -1,0 +1,12 @@
+Animation Frame Breakdown
+
+Idle: 1 - 60 (Loop)
+Run: 70 - 100 (Loop)
+Idle_Shoot: 110 - 120
+Jump: 130 - 145
+Jump_Fall: 155 - 170 (Loop)
+Fall_Land: 180 - 190
+Run_Shoot: 200 - 230
+Jump_Shoot: 240 - 250
+Death: 260 - 280
+Double_Jump: 290 - 300

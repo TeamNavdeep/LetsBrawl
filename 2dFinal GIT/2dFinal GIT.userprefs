@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\WeaponManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\DC_Test.cs" Line="19" Column="4" />
-      <File FileName="Assets\Scripts\WeaponManager.cs" Line="37" Column="9" />
+      <File FileName="Assets\Scripts\WeaponManager.cs" Line="14" Column="41" />
+      <File FileName="Assets\Scripts\DC_Test.cs" Line="21" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -7,6 +7,7 @@ public class WeaponManager : MonoBehaviour {
 	public GameObject slot_HG;
 	public GameObject slot_SG;
 	public GameObject slot_AR;
+	public GameObject slot_ME01;
 
 	// Use this for initialization
 	void Start () {
@@ -19,21 +20,23 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	//Switches to Handgun
-	void SwitchToHG()
+	public void SwitchToHG()
 	{
 		slot_HG.SetActive (false);
 		slot_SG.SetActive (false);
 		slot_AR.SetActive (false);
+		slot_ME01.SetActive (false);
 		slot_HG.SetActive (true);
 		anim.SetFloat("CurStyle", 0);
 	}
 
 	//Switches to Shotgun
-	void SwitchToSG()
+	public void SwitchToSG()
 	{
 		slot_HG.SetActive (false);
 		slot_SG.SetActive (false);
 		slot_AR.SetActive (false);
+		slot_ME01.SetActive (false);
 		slot_SG.SetActive (true);
 		anim.SetFloat("CurStyle", 1);
 	}
@@ -44,7 +47,19 @@ public class WeaponManager : MonoBehaviour {
 		slot_HG.SetActive (false);
 		slot_SG.SetActive (false);
 		slot_AR.SetActive (false);
+		slot_ME01.SetActive (false);
 		slot_AR.SetActive (true);
 		anim.SetFloat("CurStyle", 2);
+	}
+
+	//Switches to Combat Knife
+	public void SwitchToME01()
+	{
+		slot_HG.SetActive (false);
+		slot_SG.SetActive (false);
+		slot_AR.SetActive (false);
+		slot_ME01.SetActive (false);
+		slot_ME01.SetActive (true);
+		anim.SetFloat("CurStyle", 5);
 	}
 }

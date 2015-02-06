@@ -49,10 +49,8 @@
      <Compile Include="Assets\Scripts\DC_Test.cs" />
      <Compile Include="Assets\Scripts\GroundCheck.cs" />
      <Compile Include="Assets\Scripts\Gui_Test.cs" />
-     <Compile Include="Assets\Scripts\MoveRight.cs" />
      <Compile Include="Assets\Scripts\NetworkSampleScript.cs" />
      <Compile Include="Assets\Scripts\PlatformGenerator.cs" />
-     <Compile Include="Assets\Scripts\PlayerAnim.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\UserStats.cs" />
      <Compile Include="Assets\Scripts\WeaponManager.cs" />

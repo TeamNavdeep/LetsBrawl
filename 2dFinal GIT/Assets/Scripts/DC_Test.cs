@@ -18,7 +18,7 @@ public class DC_Test : MonoBehaviour {
 	
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
-			wepManage.SwitchToHG();
+			wepManage.SwitchWeapon(0);
 			guiText.SetActive(true);
 			this.transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
 			anim.SetTrigger("Disconnected");

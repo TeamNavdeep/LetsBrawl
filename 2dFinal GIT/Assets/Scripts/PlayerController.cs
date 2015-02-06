@@ -18,17 +18,13 @@ public class PlayerController : MonoBehaviour {
 
 	//multi touch support
 	public static Touch[] touches;
-
-	public int fingertouch= 0;
+	private int fingertouch= 0;
 	//animation
-	PlayerAnim playerAnim;
-
-
+	private Animator anim;
 
 	void Start () 
 	{
-
-	
+		anim = this.GetComponent<Animator> ();
 	}
 	
 	void Update () 
@@ -51,7 +47,7 @@ public class PlayerController : MonoBehaviour {
 					if ( Physics.Raycast(ray, out hit) && hit.transform.gameObject == leftBtn)
 					{
 						Debug.Log("CLICK LEFT");
-						PlayerAnim.anim.SetBool("Moving", true);
+						anim.SetBool("Moving", true);
 						movement = Vector3.forward * 0.1f;
 						player.transform.rotation = Quaternion.Euler(0.0f, 270.0f, 0.0f);
 						player.transform.Translate(movement);
@@ -60,7 +56,7 @@ public class PlayerController : MonoBehaviour {
 					if ( Physics.Raycast(ray, out hit) && hit.transform.gameObject == rightBtn)
 					{
 						Debug.Log("CLICK RIGHT");
-						PlayerAnim.anim.SetBool("Moving", true);
+						anim.SetBool("Moving", true);
 						movement = Vector3.forward * 0.1f;
 						//				if(Input.GetTouch(0).phase != TouchPhase.Ended && Input.GetTouch(0).phase != TouchPhase.Canceled)
 						player.transform.rotation = Quaternion.Euler(0.0f, -270.0f, 0.0f);
@@ -72,7 +68,7 @@ public class PlayerController : MonoBehaviour {
 				{
 					if (Physics.Raycast(ray, out hit) && hit.transform.gameObject == jumpBtn && isGrounded)
 					{
-						PlayerAnim.anim.SetBool("Jump",true);//HERERERERE
+						anim.SetBool("Jump",true);//HERERERERE
 						isGrounded = false;
 						Debug.Log("CLICK JUMP");
 
@@ -81,15 +77,15 @@ public class PlayerController : MonoBehaviour {
 					}
 					else if(Physics.Raycast(ray, out hit) && hit.transform.gameObject == jumpBtn && !isGrounded && doubleJump)
 					{
-						PlayerAnim.anim.SetTrigger("Double Jump");
+						anim.SetTrigger("Double Jump");
 						player.rigidbody.AddForce(new Vector2(0,150f));
 						doubleJump=false;
 					}
 				}
 				else
 				{
-					PlayerAnim.anim.SetBool("Moving", false);
-					PlayerAnim.anim.SetBool("Grounded", true);
+					anim.SetBool("Moving", false);
+					anim.SetBool("Grounded", true);
 
 				}
 

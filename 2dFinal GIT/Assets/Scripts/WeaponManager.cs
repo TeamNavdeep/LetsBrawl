@@ -19,47 +19,31 @@ public class WeaponManager : MonoBehaviour {
 	{
 	}
 
-	//Switches to Handgun
-	public void SwitchToHG()
+	public void SwitchWeapon(int slotNum)
 	{
 		slot_HG.SetActive (false);
 		slot_SG.SetActive (false);
 		slot_AR.SetActive (false);
 		slot_ME01.SetActive (false);
-		slot_HG.SetActive (true);
-		anim.SetFloat("CurStyle", 0);
-	}
 
-	//Switches to Shotgun
-	public void SwitchToSG()
-	{
-		slot_HG.SetActive (false);
-		slot_SG.SetActive (false);
-		slot_AR.SetActive (false);
-		slot_ME01.SetActive (false);
-		slot_SG.SetActive (true);
-		anim.SetFloat("CurStyle", 1);
-	}
-
-	//Switches to Assault Rifle
-	void SwitchToAR()
-	{
-		slot_HG.SetActive (false);
-		slot_SG.SetActive (false);
-		slot_AR.SetActive (false);
-		slot_ME01.SetActive (false);
-		slot_AR.SetActive (true);
-		anim.SetFloat("CurStyle", 2);
-	}
-
-	//Switches to Combat Knife
-	public void SwitchToME01()
-	{
-		slot_HG.SetActive (false);
-		slot_SG.SetActive (false);
-		slot_AR.SetActive (false);
-		slot_ME01.SetActive (false);
-		slot_ME01.SetActive (true);
-		anim.SetFloat("CurStyle", 5);
+		switch(slotNum)
+		{
+		case 0:
+			slot_HG.SetActive (true);
+			anim.SetFloat("CurStyle", slotNum);
+			break;
+		case 1:
+			slot_SG.SetActive (true);
+			anim.SetFloat("CurStyle", slotNum);
+			break;
+		case 2:
+			slot_AR.SetActive (true);
+			anim.SetFloat("CurStyle", slotNum);
+			break;
+		case 5:
+			slot_ME01.SetActive (true);
+			anim.SetFloat("CurStyle", slotNum);
+			break;
+		}
 	}
 }

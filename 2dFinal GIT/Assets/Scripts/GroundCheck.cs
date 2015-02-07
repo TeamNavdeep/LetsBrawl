@@ -6,8 +6,7 @@ public class GroundCheck : MonoBehaviour {
 	public static Animator anim;
 	// Use this for initialization
 	void Start () {
-		anim = GetComponent<Animator> ();
-	
+		anim = this.GetComponent<Animator> ();
 	}
 	
 	// Update is called once per frame
@@ -18,10 +17,32 @@ public class GroundCheck : MonoBehaviour {
 	{
 		if (col.gameObject.tag == "Platform")
 		{
+			anim.SetBool("Grounded", true);
 			PlayerController.isGrounded = true;
-			PlayerController.doubleJump = true;;
-			Debug.Log("GROUND");
+			PlayerController.doubleJump = true;
+			Debug.Log("GROUNDED");
 		}
+	}
 
+	void OnCollisionStay(Collision col)
+	{
+		if (col.gameObject.tag == "Platform")
+		{
+			anim.SetBool("Grounded", true);
+			PlayerController.isGrounded = true;
+			PlayerController.doubleJump = true;
+			Debug.Log("GROUNDED");
+		}
+	}
+
+	void OnCollisionExit(Collision col)
+	{
+		if (col.gameObject.tag == "Platform")
+		{
+			anim.SetBool("Grounded", false);
+			PlayerController.isGrounded = false;
+			PlayerController.doubleJump = true;
+			Debug.Log("NOT GROUNDED");
+		}
 	}
 }

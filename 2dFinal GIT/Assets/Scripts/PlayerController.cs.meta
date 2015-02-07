@@ -2,7 +2,11 @@ fileFormatVersion: 2
 guid: ba645ab3bf5a74b8fba37b5d6396f8b2
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - player: {instanceID: 0}
+  - leftBtn: {fileID: 100000, guid: 2b3ba69603e691a40b72138b417e2a71, type: 2}
+  - rightBtn: {fileID: 100000, guid: 68c5a5643edd4b7438c9dae1ba1de48f, type: 2}
+  - jumpBtn: {fileID: 100000, guid: bcbf036148b0e754e99e500d2d10e20e, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

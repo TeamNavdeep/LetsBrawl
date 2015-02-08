@@ -46,16 +46,18 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\DC_Test.cs" />
-     <Compile Include="Assets\Scripts\GroundCheck.cs" />
-     <Compile Include="Assets\Scripts\Gui_Test.cs" />
-     <Compile Include="Assets\Scripts\NetworkSampleScript.cs" />
-     <Compile Include="Assets\Scripts\PlatformGenerator.cs" />
-     <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\UserStats.cs" />
-     <Compile Include="Assets\Scripts\WeaponManager.cs" />
-     <Compile Include="Assets\Scripts\gamestart.cs" />
-     <Compile Include="Assets\Scripts\gamestate.cs" />
+     <Compile Include="Assets\Scripts\Main\GroundCheck.cs" />
+     <Compile Include="Assets\Scripts\Main\NetworkSampleScript.cs" />
+     <Compile Include="Assets\Scripts\Main\PlatformGenerator.cs" />
+     <Compile Include="Assets\Scripts\Main\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Main\ShootBtnManager.cs" />
+     <Compile Include="Assets\Scripts\Main\UserStats.cs" />
+     <Compile Include="Assets\Scripts\Main\WeaponManager.cs" />
+     <Compile Include="Assets\Scripts\Main\gamestart.cs" />
+     <Compile Include="Assets\Scripts\Main\gamestate.cs" />
+     <Compile Include="Assets\Scripts\Testing\DC_Test.cs" />
+     <Compile Include="Assets\Scripts\Testing\Gui_Test.cs" />
+     <Compile Include="Assets\Scripts\Testing\WeaponChange_Test.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Unity3D/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
  </Reference>

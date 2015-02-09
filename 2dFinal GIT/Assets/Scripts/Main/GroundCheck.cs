@@ -15,7 +15,7 @@ public class GroundCheck : MonoBehaviour {
 	}
 	void OnCollisionEnter(Collision col)
 	{
-		if (col.gameObject.tag == "Platform")
+		if (col.gameObject.tag == "Platform" || col.gameObject.tag == "Ground")
 		{
 			anim.SetBool("Grounded", true);
 			PlayerController.isGrounded = true;
@@ -26,7 +26,7 @@ public class GroundCheck : MonoBehaviour {
 
 	void OnCollisionStay(Collision col)
 	{
-		if (col.gameObject.tag == "Platform")
+		if (col.gameObject.tag == "Platform" || col.gameObject.tag == "Ground")
 		{
 			anim.SetBool("Grounded", true);
 			PlayerController.isGrounded = true;
@@ -37,7 +37,7 @@ public class GroundCheck : MonoBehaviour {
 
 	void OnCollisionExit(Collision col)
 	{
-		if (col.gameObject.tag == "Platform")
+		if (col.gameObject.tag == "Platform" || col.gameObject.tag == "Ground")
 		{
 			anim.SetBool("Grounded", false);
 			PlayerController.isGrounded = false;

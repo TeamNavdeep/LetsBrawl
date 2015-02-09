@@ -22,19 +22,19 @@ public class PlatformGenerator : MonoBehaviour {
 		//rfstplatform = new Vector3 (4.35f, 8f, -13.5f);
 
 		// 2nd Upper platforms
-		lsndplatform = new Vector3 (-6.35f, 6f, -15.5f);
-		msndplatform = new Vector3 (0, 6f, -12.5f);
-		rsndplatform = new Vector3 (6.35f, 6f, -15.5f);
+		lsndplatform = new Vector3 (-6.35f, 6f, -12f);
+		msndplatform = new Vector3 (0, 6f, -12f);
+		rsndplatform = new Vector3 (6.35f, 6f, -12f);
 
 		// 3rd lower most platforms
-		ltrdplatform = new Vector3 (-6.35f, 4f, -15.5f);
-		mtrdplatform = new Vector3 (0, 4f, -15.5f);
-		rtrdplatform = new Vector3 (6.35f, 4f, -15.5f);
+		ltrdplatform = new Vector3 (-6.35f, 4f, -12f);
+		mtrdplatform = new Vector3 (0, 4f, -12f);
+		rtrdplatform = new Vector3 (6.35f, 4f, -12f);
 
 		// 4th lowest most platforms
-		lfthplatform = new Vector3 (-6.35f, 2f, -15.5f);
-		mfthplatform = new Vector3 (0, 2f, -15.5f);
-		rfthplatform = new Vector3 (6.35f, 2f, -15.5f);
+		lfthplatform = new Vector3 (-6.35f, 2f, -12f);
+		mfthplatform = new Vector3 (0, 2f, -12f);
+		rfthplatform = new Vector3 (6.35f, 2f, -12f);
 
 		//int fstplatformrng = Random.Range (0,50);
 		int sndplatformrng = Random.Range (0,50);

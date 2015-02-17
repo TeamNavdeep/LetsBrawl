@@ -99,7 +99,7 @@ public class PlayerCustomization
 //
 //        Debug.Log("Total Attack : " + totalAttack);
 //        Debug.Log("Total speed : " + totalSpeed);
-//        Debug.Log("Total defense: " + totalDefence);
+//        Debug.Log("Total defence: " + totalDefence);
 //
 //    }
 //	

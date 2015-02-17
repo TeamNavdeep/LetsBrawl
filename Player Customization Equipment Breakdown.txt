@@ -1,0 +1,48 @@
+Player Customization -Equipment Breakdown
+========================================================================
+
+More attack power = you get less defense power   
+example: PowerGloves +85 will also reduce -45 current defense power 
+
+Call Method ---------
+     EquipAttack(Attack.EQUPMENTNAME)
+get totalAttack power
+     ClassName.totalAttack;
+
+========================================================================
+
+More defense power  =  you get less speed power 
+example: ProtectionBadge +45 will also reduce -22 current speed power 
+
+Call Method ---------
+     EquipDefense(Defense.EQUPMENTNAME)
+get totalDefense power
+     ClassName.totalDefense;
+
+========================================================================
+
+More speed power = you get less attack power
+example: AgilityBadge +55 will also reduce -20 current speed attack power
+
+Call Method ---------
+     EquipSpeed(Speed.EQUPMENTNAME)
+get totalSpeed power
+     ClassName.totalSpeed;
+========================================================================
+
++------------------+---------------------+------------------+
+| Attack Equipment |   Defense Equpment  |  Speed Equipment |
++===========================================================+
+|  PowerGloves +85 | ProtectionBadge +45 | AgilityBadge +55 |
+|      defense -35 |           speed -25 |       attack -20 |
++------------------+---------------------+------------------+
+|   BrawnBadge +45 |          Jacket +85 |        Boots +40 |
+|     defense -25  |           speed -35 |       attack -35 |
++------------------+---------------------+------------------+
+|      XAttack +65 |            Suit +65 |      Booster +70 |
+|      defense -45 |           speed -30 |       attack -45 |
++------------------+---------------------+------------------+
+|                  |          Helmet +55 |        Shoes +35 |
+|                  |           speed -25 |       attack -35 |
++------------------+---------------------+------------------+
+

@@ -161,7 +161,7 @@ public class NetworkScript : MonoBehaviour {
 			}
 			
 			if (GUI.Button(new Rect(hg2.width / 2 - 100, hg2.height - 150, 200, 100), "Menu")){
-				Application.LoadLevel("GameSelection");
+				Application.LoadLevel("MainMenu");
 			}
 			
 			GUI.EndGroup ();

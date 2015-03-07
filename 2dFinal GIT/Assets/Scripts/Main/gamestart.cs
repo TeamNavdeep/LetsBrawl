@@ -14,17 +14,33 @@ public class gamestart : MonoBehaviour
 		}	
 		if (GUI.Button (new Rect (Screen.width/2 - 75, Screen.height/2 + 35, 150, 30), "Customize Character"))
 		{
-			print("Customize Character Meun");
+			CustomizeCharacter();
 		}
 		if (GUI.Button (new Rect (Screen.width/2 - 75, Screen.height/2 + 70, 150, 30), "Achievements"))
 		{
-			print("Achievements");
+			Achievements();
 		}
 	}
 	
 	private void startGame()
 	{
-		print("Starting game");
+		//Launch Louis Script
+		print("Starting game scene");
+		
+		DontDestroyOnLoad(gamestate.Instance);
+		gamestate.Instance.startState();
+	}
+	private void CustomizeCharacter()
+	{
+		print("Customize Character scene");
+		
+		DontDestroyOnLoad(gamestate.Instance);
+		gamestate.Instance.startState();
+	}
+
+	private void Achievements()
+	{
+		print("Achievements scene");
 		
 		DontDestroyOnLoad(gamestate.Instance);
 		gamestate.Instance.startState();

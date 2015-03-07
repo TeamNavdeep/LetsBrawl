@@ -13,13 +13,13 @@ public class ShootBtnManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		wepManage = GameObject.FindWithTag ("Player").GetComponent<WeaponManager> ();
+//		wepManage = GameObject.FindWithTag ("Player").GetComponent<WeaponManager> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
-		curWep = wepManage.GetSlotNum ();
+//		curWep = wepManage.GetSlotNum ();
 
 		switch(curWep)
 		{

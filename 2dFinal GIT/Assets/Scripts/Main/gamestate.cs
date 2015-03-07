@@ -7,16 +7,11 @@ public class gamestate : MonoBehaviour {
 	// Declare properties
 	private static gamestate instance;
 	private string activeLevel;			
-	private string name;					
-	private int maxHP;					
-	private int maxMP;				
-	private int hp;					
-	private int mp;						
-	private int str;						
-	private int vit;							
-	private int dex;						
-	private int exp;
-
+	private float healthPower,defence,moveSpeed,jumpStats,demageState,attackingSpeed;
+	private string playerName;
+	private bool winLoss;
+	UserStats userProp = new UserStats();
+	
 	// ---------------------------------------------------------------------------------------------------
 	// gamestate()
 	// --------------------------------------------------------------------------------------------------- 
@@ -29,7 +24,6 @@ public class gamestate : MonoBehaviour {
 			if(instance == null)
 			{
 				instance =  new GameObject("gamestate").AddComponent<gamestate>();
-				//instance = new GameObject("gamestate").AddComponent();
 			}
 			
 			return instance;
@@ -51,16 +45,14 @@ public class gamestate : MonoBehaviour {
 
 		// Set default properties:
 		activeLevel = "Level 1";
-		name = "My Character";
-		maxHP = 250;
-		maxMP = 60;
-		hp = maxHP;
-		mp = maxMP;
-		str = 6;
-		vit = 5;
-		dex = 7;
-		exp = 0;
-
-		//Application.LoadLevel("level1");
+		playerName = userProp.PlayerName;
+		healthPower = userProp.HealthPower;
+		defence = userProp.Defence;
+		moveSpeed = userProp.MoveSpeed;
+		jumpStats = userProp.JumpStats;
+		demageState = userProp.DemageStats;
+		attackingSpeed = userProp.AttackingSpeed;
+			
+		Application.LoadLevel("network_test");
 	}
 }

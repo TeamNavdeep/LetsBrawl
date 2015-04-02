@@ -7,6 +7,8 @@ public class PlatformGenerator : MonoBehaviour {
 
 	public Transform platform;
 
+	private bool isServer = false;
+
 
 	//private Vector3 lfstplatform, mfstplatform, rfstplatform;
 	private Vector3 lsndplatform, msndplatform, rsndplatform;
@@ -57,24 +59,24 @@ public class PlatformGenerator : MonoBehaviour {
 					if(CheckPlatforms(lfstplatform) == true){
 						slantedplatformrng = Random.Range (0, 10);
 						if(slantedplatformrng >= 5){
-							Instantiate(platform, lfstplatform, Quaternion.identity);
+							Network.Instantiate(platform, lfstplatform, Quaternion.identity);
 						}else{
-							Instantiate(platform, lfstplatform, Quaternion.Euler(0,0,-10));
+							Network.Instantiate(platform, lfstplatform, Quaternion.Euler(0,0,-10));
 						}
 					}
 					break;
 				case 2:
 					if(CheckPlatforms(mfstplatform) == true){
-						Instantiate(platform, mfstplatform, Quaternion.identity);
+						Network.Instantiate(platform, mfstplatform, Quaternion.identity);
 					}
 					break;
 				case 3:
 					if(CheckPlatforms(rfstplatform) == true){
 						slantedplatformrng = Random.Range (0, 10);
 						if(slantedplatformrng >= 5){
-							Instantiate(platform, rfstplatform, Quaternion.identity);
+							Network.Instantiate(platform, rfstplatform, Quaternion.identity);
 						}else{
-							Instantiate(platform, rfstplatform, Quaternion.Euler(0,0,10));
+							Network.Instantiate(platform, rfstplatform, Quaternion.Euler(0,0,10));
 						}
 					}
 					break;
@@ -94,40 +96,40 @@ public class PlatformGenerator : MonoBehaviour {
 				{
 					slantedplatformrng = Random.Range (0, 10);
 					if(slantedplatformrng >= 5){
-						Instantiate(platform, lsndplatform, Quaternion.identity);
+						Network.Instantiate(platform, lsndplatform, Quaternion.identity, 0);
 					}else{
-						Instantiate(platform, lsndplatform, Quaternion.Euler(0,0,-10));
+						Network.Instantiate(platform, lsndplatform, Quaternion.Euler(0,0,-10), 0);
 					}
 				}else{
 					if(CheckPlatforms(msndplatform)==true){
 						platformpicker2 = 2;
-						Instantiate(platform, msndplatform, Quaternion.identity);
+						Network.Instantiate(platform, msndplatform, Quaternion.identity, 0);
 					}
 				}
 				break;
 			case 2:
 				if(CheckPlatforms(msndplatform)==true)
 				{
-					Instantiate(platform, msndplatform, Quaternion.identity);
+					Network.Instantiate(platform, msndplatform, Quaternion.identity, 0);
 				}else if(CheckPlatforms(rsndplatform)==true){
 					platformpicker2 = 3;
-					Instantiate(platform, rsndplatform, Quaternion.identity);
+					Network.Instantiate(platform, rsndplatform, Quaternion.identity, 0);
 				}else if(CheckPlatforms(lsndplatform)==true){
 					platformpicker2 = 1;
-					Instantiate(platform, lsndplatform, Quaternion.identity);
+					Network.Instantiate(platform, lsndplatform, Quaternion.identity, 0);
 				}
 				break;
 			case 3:
 				if(CheckPlatforms(msndplatform)==true)
 				{
 					//platformpicker = 3;
-					Instantiate(platform, msndplatform, Quaternion.identity);
+					Network.Instantiate(platform, msndplatform, Quaternion.identity, 0);
 				}else if(CheckPlatforms(rsndplatform)==true){
 					slantedplatformrng = Random.Range (0, 10);
 					if(slantedplatformrng >= 5){
-						Instantiate(platform, rsndplatform, Quaternion.identity);
+						Network.Instantiate(platform, rsndplatform, Quaternion.identity, 0);
 					}else{
-						Instantiate(platform, rsndplatform, Quaternion.Euler(0,0,10));
+						Network.Instantiate(platform, rsndplatform, Quaternion.Euler(0,0,10), 0);
 					}
 				}
 				break;
@@ -146,30 +148,30 @@ public class PlatformGenerator : MonoBehaviour {
 				{
 					slantedplatformrng = Random.Range (0, 10);
 					if(slantedplatformrng >= 5){
-						Instantiate(platform, ltrdplatform, Quaternion.identity);
+						Network.Instantiate(platform, ltrdplatform, Quaternion.identity, 0);
 					}else{
-						Instantiate(platform, ltrdplatform, Quaternion.Euler(0,0,-10));
+						Network.Instantiate(platform, ltrdplatform, Quaternion.Euler(0,0,-10), 0);
 					}
 				}else{
 					if(CheckPlatforms(mtrdplatform)==true){
 						platformpicker3 = 2;
-						Instantiate(platform, mtrdplatform, Quaternion.identity);
+						Network.Instantiate(platform, mtrdplatform, Quaternion.identity, 0);
 					}
 				}
 				break;
 			case 2:
 				if(platformpicker2 != 2 && CheckPlatforms(mtrdplatform)==true)
 				{
-					Instantiate(platform, mtrdplatform, Quaternion.identity);
+					Network.Instantiate(platform, mtrdplatform, Quaternion.identity, 0);
 				}else if(platformpicker2 == 1){
 					if(CheckPlatforms(rtrdplatform)==true){
 						platformpicker3 = 3;
-						Instantiate(platform, rtrdplatform, Quaternion.identity);
+						Network.Instantiate(platform, rtrdplatform, Quaternion.identity, 0);
 					}
 				}else{
 					if(CheckPlatforms(ltrdplatform)==true){
 						platformpicker3 = 1;
-						Instantiate(platform, ltrdplatform, Quaternion.identity);
+						Network.Instantiate(platform, ltrdplatform, Quaternion.identity, 0);
 					}
 				}
 				break;
@@ -177,14 +179,14 @@ public class PlatformGenerator : MonoBehaviour {
 				if(platformpicker2 == 3 && CheckPlatforms(mtrdplatform)==true)
 				{
 					platformpicker3 = 3;
-					Instantiate(platform, mtrdplatform, Quaternion.identity);
+					Network.Instantiate(platform, mtrdplatform, Quaternion.identity, 0);
 				}else{
 					if(CheckPlatforms(rtrdplatform)==true){
 						slantedplatformrng = Random.Range (0, 10);
 						if(slantedplatformrng >= 5){
-							Instantiate(platform, rtrdplatform, Quaternion.identity);
+							Network.Instantiate(platform, rtrdplatform, Quaternion.identity, 0);
 						}else{
-							Instantiate(platform, rtrdplatform, Quaternion.Euler(0,0,10));
+							Network.Instantiate(platform, rtrdplatform, Quaternion.Euler(0,0,10), 0);
 						}
 					}
 				}
@@ -202,27 +204,27 @@ public class PlatformGenerator : MonoBehaviour {
 			case 1:
 				if(platformpicker3 != 1 && CheckPlatforms(lfthplatform)==true)
 				{
-					Instantiate(platform, lfthplatform, Quaternion.identity);
+					Network.Instantiate(platform, lfthplatform, Quaternion.identity, 0);
 				}else{
 					if(CheckPlatforms(mfthplatform)==true){
 						platformpicker4 = 2;
-						Instantiate(platform, mfthplatform, Quaternion.identity);
+						Network.Instantiate(platform, mfthplatform, Quaternion.identity, 0);
 					}
 				}
 				break;
 			case 2:
 				if(platformpicker3 != 2 && CheckPlatforms(mfthplatform)==true)
 				{
-					Instantiate(platform, mfthplatform, Quaternion.identity);
+					Network.Instantiate(platform, mfthplatform, Quaternion.identity, 0);
 				}else if(platformpicker3 == 1 || platformpicker2 == 1){
 					if(CheckPlatforms(rfthplatform)==true){
 						platformpicker4 = 3;
-						Instantiate(platform, rfthplatform, Quaternion.identity);
+						Network.Instantiate(platform, rfthplatform, Quaternion.identity, 0);
 					}
 				}else{
 					if(CheckPlatforms(lfthplatform)==true){
 						platformpicker4 = 1;
-						Instantiate(platform, lfthplatform, Quaternion.identity);
+						Network.Instantiate(platform, lfthplatform, Quaternion.identity, 0);
 					}
 				}
 				break;
@@ -230,10 +232,10 @@ public class PlatformGenerator : MonoBehaviour {
 				if(platformpicker3 == 3 && CheckPlatforms(mfthplatform)==true)
 				{
 					platformpicker4 = 3;
-					Instantiate(platform, mfthplatform, Quaternion.identity);
+					Network.Instantiate(platform, mfthplatform, Quaternion.identity, 0);
 				}else{
 					if(CheckPlatforms(rfthplatform)==true){
-						Instantiate(platform, rfthplatform, Quaternion.identity);
+						Network.Instantiate(platform, rfthplatform, Quaternion.identity, 0);
 					}
 				}
 				break;
@@ -274,7 +276,7 @@ public class PlatformGenerator : MonoBehaviour {
 
 		platformsobj = GameObject.FindGameObjectsWithTag ("Platform");
 		// Generate the platforms
-		TotalPlatforms ();
+		//TotalPlatforms ();
 
 	}
 
@@ -297,16 +299,24 @@ public class PlatformGenerator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		// REMOVE KEY INPUTS ON RELEASE!!
-		// Generate the levels debug key
-		if (Input.GetKeyDown (KeyCode.T)) {
-			Debug.Log ("Creating Level!!");
-			TotalPlatforms();
+		if (Network.isServer){
+			if (Input.GetKeyDown (KeyCode.T) || !isServer) {
+				Debug.Log ("Creating Level!!");
+				TotalPlatforms();
+				isServer = true;
+			}
+			// Reset the levels debug key
+			if (Input.GetKeyDown (KeyCode.R)) {
+				Debug.Log ("Destroying level!!");
+				DestroyPlatforms();
+			}
 		}
-		// Reset the levels debug key
-		if (Input.GetKeyDown (KeyCode.R)) {
-			Debug.Log ("Destroying level!!");
-			DestroyPlatforms();
+		else{
+			if (isServer){
+				Debug.Log ("Destroying level!!");
+				DestroyPlatforms();
+				isServer = false;
+			}
 		}
 	}
 }

@@ -5,15 +5,18 @@ public class NetworkScript : MonoBehaviour {
 
 	//Global Objects/Variables
 	public GUISkin skinGUI;
-	public string gameName = "Let's Brawl ver 0.4";//Name of the Game
+	public string gameName = "Let's Brawl ver 0.5";//Name of the Game
 	public string serverName = "Game Match";//Custom name of the server
-	public string hostName = "Louis";//Host Name
-	private string password = "";
-	private bool wantPass = false;
+	public string hostName = "John";//Host Name
+	private string password = "";//The password that the player enters
+	private bool wantPass = false;//If the player hosting a game wants to add a password
 	private string errorMessage = "";
 
 	private bool refreshing = true;
 	private HostData[] hData = new HostData[6];
+	private int minPortNum = 25001, maxPortNum = 25555;
+	public int portNum = 25001;
+	private bool taken = false;
 	private string waitMsg = "";
 
 	public GameObject player;
@@ -27,7 +30,20 @@ public class NetworkScript : MonoBehaviour {
 		else{
 			if (wantPass)
 				Network.incomingPassword = password;
-			Network.InitializeServer (3, 25001, !Network.HavePublicAddress());//Number of players, port number, makes sure the port isn't taken
+			Network.InitializeServer (3, portNum, !Network.HavePublicAddress());//Number of players, port number, makes sure the port isn't taken
+			MasterServer.RegisterHost (gameName, serverName, hostName);
+			Debug.Log("Starting Server");
+		}
+	}
+	void startServer(int port){
+		if (serverName == null || serverName == "")
+			errorMessage = "Enter a name in the Server Name field.";
+		else if (wantPass && password == "")
+			errorMessage = "Enter a Password";
+		else{
+			if (wantPass)
+				Network.incomingPassword = password;
+			Network.InitializeServer (3, port, !Network.HavePublicAddress());//Number of players, port number, makes sure the port isn't taken
 			MasterServer.RegisterHost (gameName, serverName, hostName);
 			Debug.Log("Starting Server");
 		}
@@ -49,6 +65,7 @@ public class NetworkScript : MonoBehaviour {
 			Network.Instantiate (player, startPos.transform.position, player.transform.rotation, 1);
 	}
 
+	private float counter = 30;
 	void Update () {
 		if (refreshing){
 			if (MasterServer.PollHostList().Length > 0){
@@ -59,12 +76,16 @@ public class NetworkScript : MonoBehaviour {
 			}
 			else{
 				waitMsg = "Finding Games...";
+				counter -= Time.deltaTime;
+				if (counter <= 0)
+					refreshing = false;
 			}
 		}
 		else{
-			if (MasterServer.PollHostList().Length <= 0){
+			if (hData.Length <= 0){
 				waitMsg = "Can't Find Games";
 			}
+			counter = 30;
 		}
 	}
 
@@ -85,50 +106,56 @@ public class NetworkScript : MonoBehaviour {
 	}
 	
 	void OnMasterServerEvent(MasterServerEvent mse){
-		if(mse == MasterServerEvent.RegistrationSucceeded)
-			Debug.Log("Registered Server!");
-		else{
-			errorMessage = "Server already taken.";
-			Debug.Log("Registration Failed");
+		if (!refreshing){
+			do{
+				if(mse == MasterServerEvent.RegistrationSucceeded){
+					taken = false;
+					portNum = minPortNum;
+					Debug.Log("Registered Server!");
+				}
+				else{
+					errorMessage = "Server already taken.";
+					taken = true;
+					Debug.Log("Registration Failed");
+					portNum++;
+					startServer(portNum);
+				}
+			} while (taken == true && portNum != maxPortNum);
 		}
 	}
 	
 	void OnGUI(){
+		//Determined menu sizes
 		Rect hg1 = new Rect (0, 0, Screen.width / 2, Screen.height);
+		Rect hg2 = new Rect (Screen.width / 2, 0, Screen.width / 2, Screen.height);
 		Rect info = new Rect (hg1.width / 2 - ((hg1.width - 50) / 2), 100, hg1.width - 100, hg1.height - 400);
 		
 		GUI.skin = skinGUI;
+		//If you're not in a game
 		if (!Network.isServer && !Network.isClient){
 			GUI.BeginGroup (hg1);//Gives the GUI a default size
 			GUI.Box (new Rect(0, 0, hg1.width, hg1.height), "Host Game");
+			//Hosting game menu========================================================================================================
 			GUI.BeginGroup (info);
 			GUI.Label (new Rect (20, 20, 80, 20), "Server Name:");
 			serverName = GUI.TextField (new Rect(100, 20, 200, 20), serverName, 25);
-			
+			//Toggle whether you want a password or not
 			wantPass = GUI.Toggle (new Rect (20, 50, 80, 20), wantPass, "Password");
-			
+			//If you want a password with your game
 			if (wantPass){
 				GUI.Label(new Rect(20, 70, 100, 20), "Enter Password:");
 				password = GUI.PasswordField(new Rect(120, 70, 150, 20), password, '#', 15);
 			}
 			GUI.Label (new Rect (20, info.height - 80, info.width - 40, 20), errorMessage);
 			
-			Rect btnSize1 = new Rect (info.width / 2 - 50, info.height - 50, 100, 50);
+			//Rect btnSize1 = new Rect (info.width / 2 - 50, info.height - 50, 100, 50);
 			GUI.EndGroup ();
 			
 			if (GUI.Button(new Rect(hg1.width / 2 - 100, hg1.height - 150, 200, 100), "Start Server")){
 				startServer();
 			}
-			
 			GUI.EndGroup ();
-		}
-		else{
-			
-		}
-
-		Rect hg2 = new Rect (Screen.width / 2, 0, Screen.width / 2, Screen.height);
-
-		if (!Network.isServer && !Network.isClient){
+			//Finding game menu========================================================================================================
 			GUI.BeginGroup (hg2);
 			GUI.Box (new Rect (0, 0, hg2.width, hg2.height), "Join Game");
 			
@@ -159,12 +186,14 @@ public class NetworkScript : MonoBehaviour {
 					}
 				}
 			}
-			
 			if (GUI.Button(new Rect(hg2.width / 2 - 100, hg2.height - 150, 200, 100), "Menu")){
 				Application.LoadLevel("MainMenu");
 			}
-			
 			GUI.EndGroup ();
+			//End of game menu========================================================================================================
+		}
+		else{
+			
 		}
 		if (Network.isServer){
 			if (GUI.Button(new Rect(20, 20, 200, 100), "Close Server")){

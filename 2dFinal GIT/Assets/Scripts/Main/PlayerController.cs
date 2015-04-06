@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour {
 	//jump and ground check
 	public static bool isGrounded;
 	public static bool doubleJump;
+	public bool checkWalking;
+	public bool checkJump;
+	public bool checkDoubleJump;
 
 	//multi touch support
 	public static Touch[] touches;
@@ -54,6 +57,7 @@ public class PlayerController : MonoBehaviour {
 						{
 							Debug.Log("CLICK LEFT");
 							anim.SetBool("Moving", true);
+							checkWalking = true;
 							player.transform.rotation = Quaternion.Euler(0.0f, 270.0f, 0.0f);
 							player.transform.Translate(movement);
 							
@@ -62,6 +66,7 @@ public class PlayerController : MonoBehaviour {
 						{
 							Debug.Log("CLICK RIGHT");
 							anim.SetBool("Moving", true);
+							checkWalking = true;
 							player.transform.rotation = Quaternion.Euler(0.0f, -270.0f, 0.0f);
 							player.transform.Translate(movement);
 						}
@@ -69,12 +74,14 @@ public class PlayerController : MonoBehaviour {
 					else
 					{
 						anim.SetBool("Moving", false);
+						checkWalking = false;
 					}
 					if(t.phase == TouchPhase.Began)
 					{
 						if (Physics.Raycast(ray, out hit) && hit.transform.gameObject == jumpBtn && isGrounded)
 						{
 							anim.SetTrigger("Jump");
+							checkJump = true;
 							isGrounded = false;
 							Debug.Log("CLICK JUMP");
 							player.rigidbody.AddForce(new Vector2(0,1000f));
@@ -83,11 +90,28 @@ public class PlayerController : MonoBehaviour {
 						else if(Physics.Raycast(ray, out hit) && hit.transform.gameObject == jumpBtn && !isGrounded && doubleJump)
 						{
 							anim.SetTrigger("Double Jump");
+							checkDoubleJump = true;
 							player.rigidbody.AddForce(new Vector2(0,750f));
 							doubleJump=false;
 						}
 					}
 				}
+			}
+		}
+		else{
+			if (checkJump){
+				anim.SetTrigger("Jump");
+				checkJump = false;
+			}
+			if (checkDoubleJump){
+				anim.SetTrigger("Double Jump");
+				checkDoubleJump = false;
+			}
+			if (checkWalking){
+				anim.SetBool("Moving", true);
+			}
+			else{
+				anim.SetBool("Moving", false);
 			}
 		}
 	}

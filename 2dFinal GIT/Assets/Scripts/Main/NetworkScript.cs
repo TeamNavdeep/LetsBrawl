@@ -43,6 +43,7 @@ public class NetworkScript : MonoBehaviour {
 		else{
 			if (wantPass)
 				Network.incomingPassword = password;
+			port = Random.Range(minPortNum, maxPortNum);
 			Network.InitializeServer (3, port, !Network.HavePublicAddress());//Number of players, port number, makes sure the port isn't taken
 			MasterServer.RegisterHost (gameName, serverName, hostName);
 			Debug.Log("Starting Server");
@@ -64,8 +65,7 @@ public class NetworkScript : MonoBehaviour {
 		else if (Network.isClient)
 			Network.Instantiate (player, startPos.transform.position, player.transform.rotation, 1);
 	}
-
-	private float counter = 30;
+	
 	void Update () {
 		if (refreshing){
 			if (MasterServer.PollHostList().Length > 0){
@@ -76,16 +76,13 @@ public class NetworkScript : MonoBehaviour {
 			}
 			else{
 				waitMsg = "Finding Games...";
-				counter -= Time.deltaTime;
-				if (counter <= 0)
-					refreshing = false;
+				refreshing = false;
 			}
 		}
 		else{
 			if (hData.Length <= 0){
 				waitMsg = "Can't Find Games";
 			}
-			counter = 30;
 		}
 	}
 
@@ -107,20 +104,16 @@ public class NetworkScript : MonoBehaviour {
 	
 	void OnMasterServerEvent(MasterServerEvent mse){
 		if (!refreshing){
-			do{
-				if(mse == MasterServerEvent.RegistrationSucceeded){
-					taken = false;
-					portNum = minPortNum;
-					Debug.Log("Registered Server!");
-				}
-				else{
-					errorMessage = "Server already taken.";
-					taken = true;
-					Debug.Log("Registration Failed");
-					portNum++;
-					startServer(portNum);
-				}
-			} while (taken == true && portNum != maxPortNum);
+			if(mse == MasterServerEvent.RegistrationSucceeded){
+				taken = false;
+				Debug.Log("Registered Server!");
+			}
+			else{
+				errorMessage = "Server already taken.";
+				taken = true;
+				Debug.Log("Registration Failed");
+				startServer(portNum);
+			}
 		}
 	}
 	

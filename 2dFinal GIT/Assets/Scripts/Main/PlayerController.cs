@@ -39,6 +39,11 @@ public class PlayerController : MonoBehaviour {
 	private Animator anim;
 	private NetworkView netView;
 
+    //Sound variables
+    public AudioClip hgSound;
+    public AudioClip arSound;
+    public AudioClip sgSound;
+
 	void shoot(){
 		if (isleft) {
 			xoffset = -0.7f;
@@ -121,6 +126,35 @@ public class PlayerController : MonoBehaviour {
 							player.transform.Translate(movement);
 						}
 
+                        //For Testing - START -
+                        if (Input.GetKeyDown(KeyCode.F8))
+                        {
+                            {
+                                anim.SetTrigger("Fire");
+                                Debug.Log("SHOOTING");
+                                if (wepManage.GetSlotNum() != 5)
+                                {
+                                    shoot();
+                                    switch (wepManage.GetSlotNum())
+                                    {
+                                        case 0:
+                                            audio.PlayOneShot(hgSound);
+                                            break;
+                                        case 1:
+                                            audio.PlayOneShot(arSound);
+                                            break;
+                                        case 2:
+                                            audio.PlayOneShot(sgSound);
+                                            break;
+                                    }
+                                }
+                                canshoot = false;
+                                timer = 0.0f;
+                            }
+                        }
+
+                        //For Testing - END -
+
 						if (Physics.Raycast(ray, out hit) && hit.transform.gameObject == shootBtn)
 						{
 
@@ -129,6 +163,18 @@ public class PlayerController : MonoBehaviour {
 								Debug.Log("SHOOTING");
 								if(wepManage.GetSlotNum() != 5){
 									shoot ();
+                                    switch (wepManage.GetSlotNum())
+                                    {
+                                        case 0:
+                                            audio.PlayOneShot(hgSound);
+                                            break;
+                                        case 1:
+                                            audio.PlayOneShot(arSound);
+                                            break;
+                                        case 2:
+                                            audio.PlayOneShot(sgSound);
+                                            break;
+                                    }
 								}
 								canshoot = false;
 								timer = 0.0f;

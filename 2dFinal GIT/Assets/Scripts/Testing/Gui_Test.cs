@@ -16,8 +16,8 @@ public class Gui_Test : MonoBehaviour
 
         //nPlayer = new Userstats(float hp,float def,float mSpeed,float jStat,float dStat,string pName,bool wLoss,float aSpeed)
 
-		player1 = new UserStats(45,20,23,12,32,"Red Guy",true,32);
-        player2 = new UserStats(20, 10, 40, 00, 12, "Bowser", true, 22);
+		player1 = new UserStats(45,20,23,12,32,"Red Guy",true,32, 3);
+        player2 = new UserStats(20, 10, 40, 00, 12, "Bowser", true, 22, 3);
 	}
 	
 	void Update () {

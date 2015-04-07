@@ -6,13 +6,14 @@ public class UserStats
 {
 
     private float healthPower,defence,moveSpeed,jumpStats,demageState,attackingSpeed;
+    private int playerLives = 3;
     private string playerName;
     private bool winLoss;
 
 
     public UserStats(){}
 
-    public UserStats(float hp,float def,float mSpeed,float jStat,float dStat,string pName,bool wLoss,float aSpeed)
+    public UserStats(float hp,float def,float mSpeed,float jStat,float dStat,string pName,bool wLoss,float aSpeed, int lives)
     {
         healthPower = hp;
         defence = def;
@@ -22,6 +23,7 @@ public class UserStats
         playerName = pName;
         winLoss = wLoss;
         attackingSpeed = aSpeed;
+        playerLives = lives;
     }
 
     public float HealthPower 
@@ -66,7 +68,11 @@ public class UserStats
 	    set { attackingSpeed = value; }
 	}
 
-
+    public int PlayerLives
+    {
+        get { return playerLives; }
+        set { playerLives = value; }
+    }
 
     
 }

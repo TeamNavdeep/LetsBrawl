@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour {
 			player.transform.position.z
 			);
 		GameObject bullet = 
-			(GameObject) Instantiate(pistolprojectile, bulletspawnpos, player.transform.rotation);
+			(GameObject) Network.Instantiate(pistolprojectile, bulletspawnpos, player.transform.rotation, 0);
 	}
 
 	void Start () 

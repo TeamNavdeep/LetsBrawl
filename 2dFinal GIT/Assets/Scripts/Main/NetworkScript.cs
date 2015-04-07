@@ -12,7 +12,7 @@ public class NetworkScript : MonoBehaviour {
 	private bool wantPass = false;//If the player hosting a game wants to add a password
 	private string errorMessage = "";
 
-	private bool refreshing = true;
+	private bool refreshing = true, searching = false;
 	private HostData[] hData = new HostData[6];
 	private int minPortNum = 25001, maxPortNum = 25555;
 	public int portNum = 25001;
@@ -30,6 +30,7 @@ public class NetworkScript : MonoBehaviour {
 		else{
 			if (wantPass)
 				Network.incomingPassword = password;
+			portNum = Random.Range(minPortNum, maxPortNum);
 			Network.InitializeServer (3, portNum, !Network.HavePublicAddress());//Number of players, port number, makes sure the port isn't taken
 			MasterServer.RegisterHost (gameName, serverName, hostName);
 			Debug.Log("Starting Server");
@@ -43,7 +44,6 @@ public class NetworkScript : MonoBehaviour {
 		else{
 			if (wantPass)
 				Network.incomingPassword = password;
-			port = Random.Range(minPortNum, maxPortNum);
 			Network.InitializeServer (3, port, !Network.HavePublicAddress());//Number of players, port number, makes sure the port isn't taken
 			MasterServer.RegisterHost (gameName, serverName, hostName);
 			Debug.Log("Starting Server");
@@ -76,12 +76,15 @@ public class NetworkScript : MonoBehaviour {
 			}
 			else{
 				waitMsg = "Finding Games...";
-				refreshing = false;
+				//refreshing = false;
 			}
 		}
 		else{
 			if (hData.Length <= 0){
 				waitMsg = "Can't Find Games";
+			}
+			else{
+				hData = MasterServer.PollHostList ();
 			}
 		}
 	}
@@ -95,6 +98,16 @@ public class NetworkScript : MonoBehaviour {
 		createPlayer ();
 	}
 
+	void OnPlayerConnected(NetworkPlayer player){
+		Debug.Log ("Player:" + player.port);
+	}
+
+	void OnPlayerDisconnected(NetworkPlayer player) {
+		Debug.Log("Clean up after player " + player);
+		Network.RemoveRPCs(player);
+		Network.DestroyPlayerObjects(player);
+	}
+
 	void OnDisconnectedFromServer(){
 		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 		for (int i = 0; i < players.Length; i++){
@@ -103,16 +116,17 @@ public class NetworkScript : MonoBehaviour {
 	}
 	
 	void OnMasterServerEvent(MasterServerEvent mse){
-		if (!refreshing){
+		if (searching){
 			if(mse == MasterServerEvent.RegistrationSucceeded){
 				taken = false;
 				Debug.Log("Registered Server!");
+				searching = false;
 			}
 			else{
 				errorMessage = "Server already taken.";
 				taken = true;
 				Debug.Log("Registration Failed");
-				startServer(portNum);
+				startServer();
 			}
 		}
 	}
@@ -145,6 +159,7 @@ public class NetworkScript : MonoBehaviour {
 			GUI.EndGroup ();
 			
 			if (GUI.Button(new Rect(hg1.width / 2 - 100, hg1.height - 150, 200, 100), "Start Server")){
+				searching = true;
 				startServer();
 			}
 			GUI.EndGroup ();
@@ -161,7 +176,7 @@ public class NetworkScript : MonoBehaviour {
 			if (!refreshing){
 				for (int i = 0; i < hData.Length; i++){
 					if (hData[i] != null){
-						gameBox = new Rect (hg2.width / 2 - ((hg2.width - 200) / 2), 60 + (60 * i), hg2.width - 200, 60);
+						gameBox = new Rect (hg2.width / 2 - ((hg2.width - 200) / 2), 60 + (60 * i), hg2.width - 50, 60);
 						GUI.BeginGroup(gameBox);
 						GUI.Box(gameBox, "" + (1 + 1));
 						GUI.Label(new Rect(gameBox.width / 2 - 100, gameBox.height / 2 - 10, 200, 20), hData[i].gameName);

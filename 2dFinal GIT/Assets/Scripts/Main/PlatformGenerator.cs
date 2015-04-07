@@ -7,7 +7,7 @@ public class PlatformGenerator : MonoBehaviour {
 
 	public Transform platform;
 
-	private bool isServer = false;
+	private bool isServer = false, isClient = false;
 
 
 	//private Vector3 lfstplatform, mfstplatform, rfstplatform;
@@ -316,6 +316,16 @@ public class PlatformGenerator : MonoBehaviour {
 				Debug.Log ("Destroying level!!");
 				DestroyPlatforms();
 				isServer = false;
+			}
+		}
+		if (Network.isClient){
+			isClient = true;
+		}
+		else{
+			if (isClient){
+				Debug.Log ("Destroying level!!");
+				DestroyPlatforms();
+				isClient = false;
 			}
 		}
 	}

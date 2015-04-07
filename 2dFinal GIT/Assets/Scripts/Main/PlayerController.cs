@@ -17,8 +17,10 @@ public class PlayerController : MonoBehaviour {
 
 	//shooting variables
 	private float timer = 0f;
+	private float limit;
 	private bool canshoot = false;
 	private float speed = 10f;
+	private WeaponManager wepManage;
 
 	//jump and ground check
 	public static bool isGrounded;
@@ -27,6 +29,9 @@ public class PlayerController : MonoBehaviour {
 	public bool checkJump;
 	public bool checkDoubleJump;
 
+	private bool isleft = false;
+	private float xoffset = 0.7f;
+
 	//multi touch support
 	public static Touch[] touches;
 	private int fingertouch= 0;
@@ -34,9 +39,14 @@ public class PlayerController : MonoBehaviour {
 	private Animator anim;
 	private NetworkView netView;
 
-	void shootPistol(){
+	void shoot(){
+		if (isleft) {
+			xoffset = -0.7f;
+		} else {
+			xoffset = 0.7f;
+		}
 		Vector3 bulletspawnpos = new Vector3 (
-			player.transform.position.x,
+			player.transform.position.x + xoffset,
 			player.transform.position.y + 0.7f,
 			player.transform.position.z
 			);
@@ -52,12 +62,27 @@ public class PlayerController : MonoBehaviour {
 		rightBtn = GameObject.Find ("Right_Btn");
 		jumpBtn = GameObject.Find ("Jump_Btn");
 		shootBtn = GameObject.Find ("Shoot_Btn");
+		wepManage = GetComponent<WeaponManager> ();
 	}
 	
 	void Update () 
 	{
 		timer += Time.deltaTime;
-		if (timer >= 1f) {
+		switch (wepManage.GetSlotNum()) {
+		case 0:
+			limit = 1.0f;
+			break;
+		case 1:
+			limit = 1.5f;
+			break;
+		case 2:
+			limit = 0.3f;
+			break;
+		case 5:
+			limit = 1.0f;
+			break;
+		}
+		if (timer >= limit) {
 			canshoot = true;
 		}
 		// for single touch use this code 
@@ -78,6 +103,7 @@ public class PlayerController : MonoBehaviour {
 					{
 						if ( Physics.Raycast(ray, out hit) && hit.transform.gameObject == leftBtn)
 						{
+							isleft = true;
 							//Debug.Log("CLICK LEFT");
 							anim.SetBool("Moving", true);
 							checkWalking = true;
@@ -87,6 +113,7 @@ public class PlayerController : MonoBehaviour {
 						}
 						else if ( Physics.Raycast(ray, out hit) && hit.transform.gameObject == rightBtn)
 						{
+							isleft = false;
 							//Debug.Log("CLICK RIGHT");
 							anim.SetBool("Moving", true);
 							checkWalking = true;
@@ -96,10 +123,13 @@ public class PlayerController : MonoBehaviour {
 
 						if (Physics.Raycast(ray, out hit) && hit.transform.gameObject == shootBtn)
 						{
+
 							if(canshoot == true){
-								Debug.Log("SHOOTING");
-								shootPistol();
 								anim.SetTrigger("Fire");
+								Debug.Log("SHOOTING");
+								if(wepManage.GetSlotNum() != 5){
+									shoot ();
+								}
 								canshoot = false;
 								timer = 0.0f;
 							}

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
-	private float speed = 10f;
+	private float speed = 15f;
 	private float timer = 0.0f;
 	private float timerlimit = 5.0f;
 
@@ -19,5 +19,9 @@ public class Projectile : MonoBehaviour {
 			Debug.Log ("Destroying bullet");
 			Destroy (this.gameObject);
 		}
+	}
+
+	void OnCollisionEnter(Collision col){
+		Destroy (this.gameObject);
 	}
 }

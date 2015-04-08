@@ -7,7 +7,8 @@ public class gamestart : MonoBehaviour
 	// Our Startscreen GUI
 	//healthPower being distributed to TestHealthPower, firerate changes firerate of each gun check player Controller switch
 	//statement
-	public static float healthPower,fireRate;
+	public static float healthPower = 100.00f;
+	public static float fireRate;
 
 	GameObject customizeMenu,GUIButton;
 	Slider headGearSlider,chestGearSlider,glovesSlider,fireRateSlider;

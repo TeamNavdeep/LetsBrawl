@@ -19,7 +19,7 @@ public class BattleResultsManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		thScript.getAliveStatus();
         switch (playerLives)
         {
             case 0:

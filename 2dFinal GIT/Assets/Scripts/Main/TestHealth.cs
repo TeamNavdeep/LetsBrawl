@@ -13,13 +13,14 @@ public class TestHealth : MonoBehaviour {
 		print(gamestart.healthPower);
 		health = gamestart.healthPower;
 		isAlive = true;
-		healthbar2 = (GameObject)Network.Instantiate (healthbar, transform.position, Quaternion.identity, 1);
+		healthbar2 = (GameObject)Instantiate (healthbar, transform.position, Quaternion.identity);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (health <= 0) {
 			isAlive =false;
+			Destroy(healthbar);
 		}
 		healthbar2.transform.localScale = new Vector3 (health/100, 0.05f, 1);
 		healthbar2.transform.position = new Vector3(this.transform.position.x, this.transform.position.y+ 2.0f, this.transform.position.z);
@@ -29,6 +30,10 @@ public class TestHealth : MonoBehaviour {
         {
             health -= 20;
         }
+
+		if (!Network.isServer && !Network.isClient){
+			Destroy(healthbar);
+		}
 	}
 	public bool getAliveStatus(){
 		return isAlive;

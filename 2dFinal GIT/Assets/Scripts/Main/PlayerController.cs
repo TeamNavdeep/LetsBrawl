@@ -75,16 +75,16 @@ public class PlayerController : MonoBehaviour {
 		timer += Time.deltaTime;
 		switch (wepManage.GetSlotNum()) {
 		case 0:
-			limit = 1.0f;
+			limit = 1.0f - gamestart.fireRate;
 			break;
 		case 1:
-			limit = 1.5f;
+			limit = 1.5f - gamestart.fireRate;
 			break;
 		case 2:
-			limit = 0.3f;
+			limit = 0.3f - gamestart.fireRate;
 			break;
 		case 5:
-			limit = 1.0f;
+			limit = 1.0f - gamestart.fireRate;
 			break;
 		}
 		if (timer >= limit) {

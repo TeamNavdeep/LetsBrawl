@@ -10,7 +10,7 @@ public class TestHealth : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		health = 100.0f;
+		health = gamestart.healthPower;
 		isAlive = true;
 		healthbar2 = (GameObject)Instantiate (healthbar, transform.position, Quaternion.identity);
 	}

@@ -13,7 +13,7 @@ public class TestHealth : MonoBehaviour {
 		print(gamestart.healthPower);
 		health = gamestart.healthPower;
 		isAlive = true;
-		healthbar2 = (GameObject)Instantiate (healthbar, transform.position, Quaternion.identity);
+		healthbar2 = (GameObject)Network.Instantiate (healthbar, transform.position, Quaternion.identity, 1);
 	}
 	
 	// Update is called once per frame

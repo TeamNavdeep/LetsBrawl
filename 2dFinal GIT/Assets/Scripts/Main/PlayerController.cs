@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour {
 			player.transform.position.z
 			);
 		GameObject bullet = 
-			(GameObject) Network.Instantiate(pistolprojectile, bulletspawnpos, player.transform.rotation, 0);
+			(GameObject) Network.Instantiate(pistolprojectile, bulletspawnpos, player.transform.rotation, 1);
 	}
 
 	void Start () 
@@ -209,21 +209,24 @@ public class PlayerController : MonoBehaviour {
 				}
 			}
 		}
+		syncAnimation ();
+	}
+
+	[RPC]
+	void syncAnimation(){
+		if (checkJump){
+			anim.SetTrigger("Jump");
+			checkJump = false;
+		}
+		if (checkDoubleJump){
+			anim.SetTrigger("Double Jump");
+			checkDoubleJump = false;
+		}
+		if (checkWalking){
+			anim.SetBool("Moving", true);
+		}
 		else{
-			if (checkJump){
-				anim.SetTrigger("Jump");
-				checkJump = false;
-			}
-			if (checkDoubleJump){
-				anim.SetTrigger("Double Jump");
-				checkDoubleJump = false;
-			}
-			if (checkWalking){
-				anim.SetBool("Moving", true);
-			}
-			else{
-				anim.SetBool("Moving", false);
-			}
+			anim.SetBool("Moving", false);
 		}
 	}
 }

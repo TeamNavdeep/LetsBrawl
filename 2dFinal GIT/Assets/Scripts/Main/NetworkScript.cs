@@ -110,8 +110,10 @@ public class NetworkScript : MonoBehaviour {
 
 	void OnDisconnectedFromServer(){
 		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		GameObject[] hpBars = GameObject.FindGameObjectsWithTag("HP");
 		for (int i = 0; i < players.Length; i++){
 			Destroy(players[i]);
+			Destroy(hpBars[i]);
 		}
 	}
 	

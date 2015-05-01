@@ -6,21 +6,24 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviour {
 
 	public GameObject player;
+
 	//buttons
-	public GameObject leftBtn,rightBtn,jumpBtn, shootBtn;
+	public GameObject leftBtn,rightBtn,jumpBtn, shootBtn, gunBtn;
 
 	//projectiles
 	public GameObject pistolprojectile;
 
+	private int slotNum;
+
 	//movespeed
 	private Vector3 movement = Vector3.forward * 0.1f;
+	private WeaponManager wepManage;
 
 	//shooting variables
 	private float timer = 0f;
 	private float limit;
 	private bool canshoot = false;
 	private float speed = 10f;
-	private WeaponManager wepManage;
 
 	//jump and ground check
 	public static bool isGrounded;
@@ -56,7 +59,7 @@ public class PlayerController : MonoBehaviour {
 			player.transform.position.z
 			);
 		GameObject bullet = 
-			(GameObject) Network.Instantiate(pistolprojectile, bulletspawnpos, player.transform.rotation, 1);
+			(GameObject) Network.Instantiate(pistolprojectile, bulletspawnpos, player.transform.rotation, 0);
 	}
 
 	void Start () 
@@ -67,6 +70,7 @@ public class PlayerController : MonoBehaviour {
 		rightBtn = GameObject.Find ("Right_Btn");
 		jumpBtn = GameObject.Find ("Jump_Btn");
 		shootBtn = GameObject.Find ("Shoot_Btn");
+		gunBtn = GameObject.Find ("Gun_Btn");
 		wepManage = GetComponent<WeaponManager> ();
 	}
 	
@@ -188,6 +192,31 @@ public class PlayerController : MonoBehaviour {
 					}
 					if(t.phase == TouchPhase.Began)
 					{
+						if (Physics.Raycast(ray, out hit) && hit.transform.gameObject == gunBtn)
+						{
+							slotNum++;
+							if(slotNum > 2)
+							{
+								slotNum = 0;
+							}
+							wepManage.SwitchWeapon(slotNum);
+							
+							switch(wepManage.GetSlotNum())
+								{
+								case  0:
+									wepManage.SwitchWeapon(0);
+									break;
+								case  1:
+									wepManage.SwitchWeapon(1);
+									break;
+								case  2:
+									wepManage.SwitchWeapon(2);
+									break;
+								}
+
+
+							
+						}
 
 						if (Physics.Raycast(ray, out hit) && hit.transform.gameObject == jumpBtn && isGrounded)
 						{

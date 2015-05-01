@@ -18,6 +18,8 @@ public class NetworkScript : MonoBehaviour {
 	public int portNum = 25001;
 	private bool taken = false;
 	private string waitMsg = "";
+	private int[] playerNum = new int[6];
+	public int game;
 
 	public GameObject player;
 	public GameObject startPos;
@@ -58,12 +60,12 @@ public class NetworkScript : MonoBehaviour {
 		}
 	}
 
-	void createPlayer(){
+	void createPlayer(int playerNum){
 		if (Network.isServer){
 			Network.Instantiate (player, startPos.transform.position, player.transform.rotation, 0);
 		}
 		else if (Network.isClient)
-			Network.Instantiate (player, startPos.transform.position, player.transform.rotation, 1);
+			Network.Instantiate (player, startPos.transform.position, player.transform.rotation, playerNum);
 	}
 	
 	void Update () {
@@ -91,11 +93,11 @@ public class NetworkScript : MonoBehaviour {
 
 	void OnServerInitialized(){
 		Debug.Log ("Server Initialized");
-		createPlayer ();
+		createPlayer (game);
 	}
 
 	void OnConnectedToServer(){
-		createPlayer ();
+		createPlayer (game);
 	}
 
 	void OnPlayerConnected(NetworkPlayer player){
@@ -184,11 +186,13 @@ public class NetworkScript : MonoBehaviour {
 						GUI.Label(new Rect(gameBox.width / 2 - 100, gameBox.height / 2 - 10, 200, 20), hData[i].gameName);
 						GUI.Label(new Rect(20, 10, 200, 20), "Host: " + hData[i].comment);
 						GUI.Label(new Rect(20, gameBox.height - 30, 50, 20), hData[i].connectedPlayers + "/" + hData[i].playerLimit);
+						playerNum[i] = hData[i].connectedPlayers;
 						if (GUI.Button(new Rect(gameBox.width - 100, 0, 40, 40), "Join")){
 							if (hData[i].passwordProtected){
-								
+								//This is not important right now
 							}
 							else{
+								game = playerNum[i];
 								Network.Connect(hData[i]);
 							}
 						}

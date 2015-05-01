@@ -18,6 +18,7 @@ public class gamestart : MonoBehaviour
 		customizeMenu = GameObject.Find("CustomizeMenu");
 		GUIButton = GameObject.Find("GUI");
 		customizeMenu.SetActive(false);
+		//GUI.skin.label.fontSize = Screen.height / 1080 * 64;
 	}
 
 	public void BackButton(){
@@ -27,11 +28,11 @@ public class gamestart : MonoBehaviour
 
 	void OnGUI () 
 	{
-		if(GUI.Button(new Rect (Screen.width/2 - 75, Screen.height/2, 150, 30), "Play Game"))
+		if(GUI.Button(new Rect (Screen.width/2 - 150, Screen.height/2 - 40, 290, 90), "<size=28>Play Game</size>"))
 		{
 			startGame();
 		}	
-		if (GUI.Button (new Rect (Screen.width/2 - 75, Screen.height/2 + 35, 150, 30), "Customize Character"))
+		if (GUI.Button (new Rect (Screen.width/2 - 150, Screen.height/2 + 60, 290, 90), "<size=28>Customize Character</size>"))
 		{
 			customizeMenu.SetActive(true);
 
@@ -48,10 +49,6 @@ public class gamestart : MonoBehaviour
 			fireRateSlider.onValueChanged.AddListener(FireRateListener);
 			
 			GUIButton.SetActive(false);
-		}
-		if (GUI.Button (new Rect (Screen.width/2 - 75, Screen.height/2 + 70, 150, 30), "Achievements"))
-		{
-			Achievements();
 		}
 	}
 

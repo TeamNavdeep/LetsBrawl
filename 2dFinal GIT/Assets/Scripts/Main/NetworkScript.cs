@@ -77,13 +77,13 @@ public class NetworkScript : MonoBehaviour {
 				waitMsg = "";
 			}
 			else{
-				waitMsg = "Finding Games...";
+				waitMsg = "<size=20>Finding Games...</size>";
 				//refreshing = false;
 			}
 		}
 		else{
 			if (hData.Length <= 0){
-				waitMsg = "Can't Find Games";
+				waitMsg = "<size=20>Can't Find Games</size>";
 			}
 			else{
 				hData = MasterServer.PollHostList ();
@@ -137,45 +137,47 @@ public class NetworkScript : MonoBehaviour {
 	
 	void OnGUI(){
 		//Determined menu sizes
-		Rect hg1 = new Rect (0, 0, Screen.width / 2, Screen.height);
-		Rect hg2 = new Rect (Screen.width / 2, 0, Screen.width / 2, Screen.height);
-		Rect info = new Rect (hg1.width / 2 - ((hg1.width - 50) / 2), 100, hg1.width - 100, hg1.height - 400);
+		Rect hg1 = new Rect (0, 0, Screen.width / 2, Screen.height+150);
+		Rect hg2 = new Rect (Screen.width / 2, 0, Screen.width / 2, Screen.height+150);
+		Rect info = new Rect (hg1.width / 2 - ((hg1.width - 50) / 2), 100, hg1.width - 100, hg1.height - 100);
 		
 		GUI.skin = skinGUI;
 		//If you're not in a game
 		if (!Network.isServer && !Network.isClient){
 			GUI.BeginGroup (hg1);//Gives the GUI a default size
-			GUI.Box (new Rect(0, 0, hg1.width, hg1.height), "Host Game");
+			GUI.Box (new Rect(0, 0, hg1.width, hg1.height), "<size=20>Host Game</size>");
 			//Hosting game menu========================================================================================================
 			GUI.BeginGroup (info);
-			GUI.Label (new Rect (20, 20, 80, 20), "Server Name:");
-			serverName = GUI.TextField (new Rect(100, 20, 200, 20), serverName, 25);
+			GUI.Label (new Rect (20, 1, 200, 80), "<size=20>Server Name:</size>");
+			serverName = GUI.TextField (new Rect(150, 10, 200, 30), serverName, 15);
+
 			//Toggle whether you want a password or not
-			wantPass = GUI.Toggle (new Rect (20, 50, 80, 20), wantPass, "Password");
+			wantPass = GUI.Toggle (new Rect (20, 30, 150, 100), wantPass, "<size=20>Password</size>");
 			//If you want a password with your game
 			if (wantPass){
-				GUI.Label(new Rect(20, 70, 100, 20), "Enter Password:");
-				password = GUI.PasswordField(new Rect(120, 70, 150, 20), password, '#', 15);
+				GUI.Label(new Rect(20, 60, 200, 40), "<size=20>Enter Password:</size>");
+				password = GUI.PasswordField(new Rect(180, 60, 140, 30), password, '#', 15);
 			}
+
 			GUI.Label (new Rect (20, info.height - 80, info.width - 40, 20), errorMessage);
 			
 			//Rect btnSize1 = new Rect (info.width / 2 - 50, info.height - 50, 100, 50);
 			GUI.EndGroup ();
 			
-			if (GUI.Button(new Rect(hg1.width / 2 - 100, hg1.height - 150, 200, 100), "Start Server")){
+			if (GUI.Button(new Rect(hg1.width / 2-90, hg1.height/ 2-10, 200, 100), "<size=20>Start Server</size>")){
 				searching = true;
 				startServer();
 			}
 			GUI.EndGroup ();
 			//Finding game menu========================================================================================================
 			GUI.BeginGroup (hg2);
-			GUI.Box (new Rect (0, 0, hg2.width, hg2.height), "Join Game");
+			GUI.Box (new Rect (0, 0, hg2.width, hg2.height), "<size=20>Join Game</size>");
 			
-			if (GUI.Button(new Rect(20, 20, 80, 40), "Refresh")){
+			if (GUI.Button(new Rect(20, 20, 120, 80), "<size=20>Refresh</size>")){
 				refreshHostList();
 				Debug.Log("Refresh");
 			}
-			GUI.Label (new Rect (hg2.width / 2 - 50, hg2.height / 2 - 10, 100, 20), waitMsg);
+			GUI.Label (new Rect (hg2.width / 2 - 70, hg2.height / 2 - 120, 200, 80), waitMsg);
 			Rect gameBox;
 			if (!refreshing){
 				for (int i = 0; i < hData.Length; i++){
@@ -200,7 +202,7 @@ public class NetworkScript : MonoBehaviour {
 					}
 				}
 			}
-			if (GUI.Button(new Rect(hg2.width / 2 - 100, hg2.height - 150, 200, 100), "Menu")){
+			if (GUI.Button(new Rect(hg2.width / 2-90, hg2.height/ 2-10, 200, 100), "<size=20>Menu</size>")){
 				Application.LoadLevel("MainMenu");
 			}
 			GUI.EndGroup ();
